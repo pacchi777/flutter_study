@@ -13,21 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
@@ -56,15 +41,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _type = "偶数";
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
+      if (_counter % 2 == 0) {
+        _type = "偶数";
+      } else {
+        _type = "奇数";
+      }
       print("hello world!");
     });
   }
@@ -87,43 +73,61 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Column(children: [
-        const Text("hello world"),
-        const Text("こんにちは世界"),
-        TextButton(
-          onPressed: () => {print("pushed Button")},
-          child: const Text("テキストボタン"),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              Icons.favorite,
-              color: Colors.pink,
-              size: 24.0,
+      // body: Column(children: [
+      //   const Text("hello world"),
+      //   const Text("こんにちは世界"),
+      //   TextButton(
+      //     onPressed: () => {print("pushed Button")},
+      //     child: const Text("テキストボタン"),
+      //   ),
+      //   Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //     children: [
+      //       Icon(
+      //         Icons.favorite,
+      //         color: Colors.pink,
+      //         size: 24.0,
+      //       ),
+      //       Icon(
+      //         Icons.audiotrack,
+      //         color: Colors.green,
+      //         size: 30.0,
+      //       ),
+      //       Icon(
+      //         Icons.beach_access,
+      //         color: Colors.blue,
+      //         size: 36.0,
+      //       ),
+      //       Icon(
+      //         Icons.access_alarm,
+      //         color: Colors.grey,
+      //         size: 60.0,
+      //       ),
+      //     ],
+      //   ),
+      // ]),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
             ),
-            Icon(
-              Icons.audiotrack,
-              color: Colors.green,
-              size: 30.0,
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            Icon(
-              Icons.beach_access,
-              color: Colors.blue,
-              size: 36.0,
-            ),
-            Icon(
-              Icons.access_alarm,
-              color: Colors.grey,
-              size: 60.0,
-            ),
+            if (_counter % 2 == 0)
+              Text('$_type', style: TextStyle(fontSize: 20, color: Colors.red))
           ],
         ),
-      ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {print("Are you Pressing?")},
-        child: const Icon(Icons.timer),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        child: const Icon(Icons.add),
+      ),
+      drawer: const Drawer(child: Center(child: Text("Drawer"))),
+      endDrawer: const Drawer(child: Center(child: Text("EndDrawer"))),
     );
   }
 }
